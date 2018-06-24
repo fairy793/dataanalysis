@@ -12,21 +12,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+#设置路径
+path = ""
 reader = pd.read_csv("./data/adFeature.csv",iterator=True)
 
+#设置每次读取的条数，可以根据数据的大小自己调整参数
+number = 1000
 dfs = []
 try:
-	df = reader.get_chunk(1000)
+	df = reader.get_chunk(number)
 	dfs.append(df)
 except StopIteration:
 	print ("Iteration is stopped.")
 df = pd.concat(dfs, ignore_index=True)
 
-# print(df.head())
-# print(df.tail())
+# print(df.head())#查看数据的前十行
+# print(df.tail())#查看数据的后十行
 
 
-
+#查看数据的整体情况
 # count 数量
 # mean 平均值
 # std 标准差
