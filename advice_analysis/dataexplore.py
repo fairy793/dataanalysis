@@ -44,33 +44,34 @@ df = pd.concat(dfs, ignore_index=True)
 
 #查看aid和advertiserid的数据分布
 # skew是指数据的偏度
-# fig = plt.figure(figsize = (12,5))
-# ax1 = fig.add_subplot(121)
-# ax2 = fig.add_subplot(122)
-#
-# g1 = sns.distplot(df["aid"],hist = True,label='skewness:{:.2f}'.format(df['aid'].skew()),ax = ax1)
-#
-# g1.legend()
-#
-# g1.set(xlabel = 'aid')
-#
-# g2 = sns.distplot(np.log1p(df['aid']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['aid']).skew()),ax=ax2)
-# g2.legend()
-# g2.set(xlabel = 'log(aid+1)')
-# plt.show()
-#
-#
-#
-# g1 = sns.distplot(df["advertiserId"],hist = True,label='skewness:{:.2f}'.format(df['advertiserId'].skew()),ax = ax1)
-#
-# g1.legend()
-#
-# g1.set(xlabel = 'aidadvertiserId')
-#
-# g2 = sns.distplot(np.log1p(df['advertiserId']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['advertiserId']).skew()),ax=ax2)
-# g2.legend()
-# g2.set(xlabel = 'log(advertiserId+1)')
-# plt.show()
+fig = plt.figure(figsize = (12,5))
+ax1 = fig.add_subplot(121)
+ax2 = fig.add_subplot(122)
+
+g1 = sns.distplot(df["aid"],hist = True,label='skewness:{:.2f}'.format(df['aid'].skew()),ax = ax1)
+
+g1.legend()
+g1.set(xlabel = 'aid')
+
+g2 = sns.distplot(np.log1p(df['aid']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['aid']).skew()),ax=ax2)
+g2.legend()
+g2.set(xlabel = 'log(aid+1)')
+plt.show()
+
+
+fig = plt.figure(figsize = (12,5))
+ax1 = fig.add_subplot(121)
+ax2 = fig.add_subplot(122)
+g1 = sns.distplot(df["advertiserId"],hist = True,label='skewness:{:.2f}'.format(df['advertiserId'].skew()),ax = ax1)
+
+g1.legend()
+
+g1.set(xlabel = 'aidadvertiserId')
+
+g2 = sns.distplot(np.log1p(df['advertiserId']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['advertiserId']).skew()),ax=ax2)
+g2.legend()
+g2.set(xlabel = 'log(advertiserId+1)')
+plt.show()
 
 #多图形式
 output,var, = 'aid', 'advertiserId',
@@ -79,12 +80,12 @@ df.plot.scatter(x=output,y=var,ax=axes)
 plt.show()
 
 #箱图
-# output,var, = 'advertiserId', 'aid'
-# fig, ax = plt.subplots(figsize=(16,30))
-# sns.boxplot(x=var,y=output,data=df)
-# plt.xticks(rotation=90)
-# # # ax.set_ylim(0,100000)
-# plt.show()
+output,var, = 'advertiserId', 'aid'
+fig, ax = plt.subplots(figsize=(16,30))
+sns.boxplot(x=var,y=output,data=df)
+plt.xticks(rotation=90)
+# # ax.set_ylim(0,100000)
+plt.show()
 
 
 
