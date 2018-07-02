@@ -54,17 +54,7 @@ import seaborn as sns
 # 忽略警告
 import warnings
 warnings.filterwarnings('ignore')
-# 查看训练集的广告ID分布，左图是原始广告ID分布，右图是将广告ID对数化之后的分布
-fig = plt.figure(figsize=(12,5))
-ax1 = fig.add_subplot(121)
-ax2 = fig.add_subplot(122)
-g1 = sns.distplot(train_x,hist = True,label='skewness:{:.2f}'.format(train_x.skew()),ax = ax1)
-g1.legend()
-g1.set(xlabel = 'aid')
-g2 = sns.distplot(np.log1p(train_x),hist = True,label='skewness:{:.2f}'.format(np.log1p(train_x).skew()),ax=ax2)
-g2.legend()
-g2.set(xlabel = 'log(aid+1)')
-plt.show()
+
 
 # ----------------------------查看分布情況end --------------------------------------------------------------------------
 one_hot_feature = ['LBS', 'age','carrier','consumptionAbility','education','gender','house','os','ct','marriageStatus','advertiserId','campaignId', 'creativeId',
