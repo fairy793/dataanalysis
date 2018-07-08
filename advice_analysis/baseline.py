@@ -59,7 +59,8 @@ warnings.filterwarnings('ignore')
 # ----------------------------查看分布情況end --------------------------------------------------------------------------
 one_hot_feature = ['LBS', 'age','carrier','consumptionAbility','education','gender','house','os','ct','marriageStatus','advertiserId','campaignId', 'creativeId',
        'adCategoryId', 'productId', 'productType']
-vector_feature = ['appIdAction', 'appIdInstall','interest1','interest2','interest3','interest4','interest5','kw1','kw2','kw3','topic1','topic2','topic3']
+# vector_featu
+re = ['appIdAction', 'appIdInstall','interest1','interest2','interest3','interest4','interest5','kw1','kw2','kw3','topic1','topic2','topic3']
 for feature in one_hot_feature:
     try:
         data[feature] = LabelEncoder().fit_transform(data[feature].apply(int))

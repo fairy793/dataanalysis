@@ -12,7 +12,7 @@ import csv
 class Get_Milk_Info:
 	def __init__(self, url,keyword):
 		self.url = url.format(keyword)
-		print self.url
+		print (self.url)
 	def get_html(self):
 		'''
 		用于获得页面源码

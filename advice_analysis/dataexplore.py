@@ -44,49 +44,72 @@ df = pd.concat(dfs, ignore_index=True)
 
 #查看aid和advertiserid的数据分布
 # skew是指数据的偏度
-fig = plt.figure(figsize = (12,5))
-ax1 = fig.add_subplot(121)
-ax2 = fig.add_subplot(122)
+# fig = plt.figure(figsize = (12,5))
+# ax1 = fig.add_subplot(121)
+# ax2 = fig.add_subplot(122)
 
-g1 = sns.distplot(df["aid"],hist = True,label='skewness:{:.2f}'.format(df['aid'].skew()),ax = ax1)
+#偏度，Skewness，是研究数据分布对称的统计量。通过对偏度系数的测量，我们能够判定数据分布的不对称程度以及方向。
+#判断数据是否是正态分布的
+# g1 = sns.distplot(df["aid"],hist = True,label='skewness:{:.2f}'.format(df['aid'].skew()),ax = ax1)
+#
+# g1.legend()
+# g1.set(xlabel = 'aid')
+#
+# g2 = sns.distplot(np.log1p(df['aid']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['aid']).skew()),ax=ax2)
+# g2.legend()
+# g2.set(xlabel = 'log(aid+1)')
+# plt.show()
 
-g1.legend()
-g1.set(xlabel = 'aid')
 
-g2 = sns.distplot(np.log1p(df['aid']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['aid']).skew()),ax=ax2)
-g2.legend()
-g2.set(xlabel = 'log(aid+1)')
-plt.show()
-
-
-fig = plt.figure(figsize = (12,5))
-ax1 = fig.add_subplot(121)
-ax2 = fig.add_subplot(122)
-g1 = sns.distplot(df["advertiserId"],hist = True,label='skewness:{:.2f}'.format(df['advertiserId'].skew()),ax = ax1)
-
-g1.legend()
-
-g1.set(xlabel = 'aidadvertiserId')
-
-g2 = sns.distplot(np.log1p(df['advertiserId']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['advertiserId']).skew()),ax=ax2)
-g2.legend()
-g2.set(xlabel = 'log(advertiserId+1)')
-plt.show()
+# fig = plt.figure(figsize = (12,5))
+# ax1 = fig.add_subplot(121)
+# ax2 = fig.add_subplot(122)
+# g1 = sns.distplot(df["advertiserId"],hist = True,label='skewness:{:.2f}'.format(df['advertiserId'].skew()),ax = ax1)
+#
+# g1.legend()
+#
+# g1.set(xlabel = 'aidadvertiserId')
+#
+# g2 = sns.distplot(np.log1p(df['advertiserId']),hist = True,label='skewness:{:.2f}'.format(np.log1p(df['advertiserId']).skew()),ax=ax2)
+# g2.legend()
+# g2.set(xlabel = 'log(advertiserId+1)')
+# plt.show()
 
 #多图形式
-output,var, = 'aid', 'advertiserId',
-fig, axes = plt.subplots(figsize=(16,5))
-df.plot.scatter(x=output,y=var,ax=axes)
-plt.show()
+# output,var, = 'aid', 'advertiserId',
+# fig, axes = plt.subplots(figsize=(16,5))
+# df.plot.scatter(x=output,y=var,ax=axes)
+# plt.show()
 
 #箱图
-output,var, = 'advertiserId', 'aid'
-fig, ax = plt.subplots(figsize=(16,30))
-sns.boxplot(x=var,y=output,data=df)
-plt.xticks(rotation=90)
-# # ax.set_ylim(0,100000)
+# output,var, = 'advertiserId', 'aid'
+# fig, ax = plt.subplots(figsize=(16,30))
+# sns.boxplot(x=var,y=output,data=df)
+# plt.xticks(rotation=90)
+# # # ax.set_ylim(0,100000)
+# plt.show()
+
+
+
+# 对各个特征之间的关系进行分析
+# 最简单地，直接获取整个DataFrame数据的协方差矩阵并利用sns.heatmaP()进行可视化
+corrmat = df.corr()
+f, ax = plt.subplots(figsize=(12, 9))
+sns.heatmap(corrmat, vmax=.8, square=True, ax=ax)  # square参数保证corrmat为非方阵时，图形整体输出仍为正方形
 plt.show()
 
+
+#我们可以选取与output变量相关系数最高的3个特征查看其相关情况，找出那些相互关联性较强的特征
+output = 'aid'
+k = 5
+top3_attr = corrmat.nlargest(k, output).index
+top3_mat = corrmat.loc[top3_attr, top3_attr]
+fig,ax = plt.subplots(figsize=(8,6))
+sns.set(font_scale=1.25)
+# 设置annot使其在小格内显示数字，annot_kws调整数字格式
+sns.heatmap(top3_mat, annot=True, annot_kws={'size':12}, square=True)
+
+plt.show()
 
 
 
